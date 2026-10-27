@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N-Queens AI Search</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <h1>N-Queens AI Search</h1>
+        <p class="subtitle">Interactive demonstration of AI search algorithms</p>
+      </div>
+      <div class="status-container">
+        <span class="status-badge" id="statusBadge">Ready</span>
+      </div>
+    </header>
+
+    <!-- Control Panel -->
+    <section class="control-panel">
+      <!-- Input Controls -->
+      <div class="control-group">
+        <label for="nInput">Board Size (N):</label>
+        <input type="number" id="nInput" min="1" max="14" value="4">
+      </div>
+
+      <div class="control-group">
+        <label for="algoSelect">Algorithm:</label>
+        <select id="algoSelect">
+          <option value="simple_hc">1. Simple Hill Climbing (First-Choice)</option>
+          <option value="steepest_hc">2. Steepest-Ascent Hill Climbing</option>
+          <option value="astar">3. A* Search (Priority Queue & Admissible h)</option>
+          <option value="csp" selected>4. CSP Backtracking (MRV + Forward Checking)</option>
+        </select>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button id="startBtn" class="btn btn-primary">Start ▶</button>
+        <button id="stepBtn" class="btn btn-secondary">Next Step ⏭</button>
+        <button id="resetBtn" class="btn btn-danger">Reset ↺</button>
+      </div>
+
+      <!-- Playback Speed Slider -->
+      <div class="speed-group">
+        <div class="speed-label-row">
+          <label for="speedSlider">Playback Delay:</label>
+          <span id="speedValueLabel" class="speed-badge">300 ms (3.3 steps/s)</span>
+        </div>
+        <div class="slider-container">
+          <span class="speed-hint">Fast (50ms)</span>
+          <input type="range" id="speedSlider" min="50" max="1500" step="25" value="300">
+          <span class="speed-hint">Slow (1500ms)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <main class="main-layout">
+      <!-- Left Column: Board & Legend -->
+      <section class="board-section">
+        <div class="board-card">
+          <div class="board-header">
+            <h2 id="boardTitle">Chessboard (N = 4)</h2>
+            <span id="stepCounter" class="step-counter">Step: 0 / 0</span>
+          </div>
+
+          <!-- Interactive Board Container -->
+          <div class="board-wrapper">
+            <div id="chessboard" class="chessboard"></div>
+          </div>
+
+          <!-- Color Legend -->
+          <div class="legend-bar">
+            <div class="legend-item"><span class="legend-dot dot-placed"></span> Placed / Goal</div>
+            <div class="legend-item"><span class="legend-dot dot-testing"></span> Testing / Candidate</div>
+            <div class="legend-item"><span class="legend-dot dot-conflict"></span> Conflict / Rejected</div>
+            <div class="legend-item"><span class="legend-dot dot-backtrack"></span> Backtrack</div>
+            <div class="legend-item"><span class="legend-dot dot-moved"></span> Moved (HC)</div>
+            <div class="legend-item"><span class="legend-dot dot-expanded"></span> Expanded (A*)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Explanations, Metrics & History -->
+      <section class="info-section">
+        <!-- Current Step Explanation -->
+        <div class="info-card explanation-card">
+          <div class="card-header-row">
+            <h3>Current Step Explanation</h3>
+          </div>
+          <div id="stepExplanation" class="explanation-box">
+            <div class="explanation-title">Ready to Start</div>
+            <div class="explanation-detail">Select an algorithm and board size N, then click <strong>Start</strong> or <strong>Next Step</strong>.</div>
+          </div>
+        </div>
+
+        <!-- Compact Metrics Panel -->
+        <div class="info-card metrics-card">
+          <h3>Algorithm Metrics</h3>
+          <div class="metrics-grid" id="metricsGrid">
+            <div class="metric-box">
+              <span class="metric-label" id="m1Label">Metric 1</span>
+              <span class="metric-value" id="m1Value">-</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label" id="m2Label">Metric 2</span>
+              <span class="metric-value" id="m2Value">-</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label" id="m3Label">Metric 3</span>
+              <span class="metric-value" id="m3Value">-</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label" id="m4Label">Metric 4</span>
+              <span class="metric-value" id="m4Value">-</span>
+            </div>
+          </div>
+
+          <!-- Extra details box (Frontier / Domains) -->
+          <div class="details-box" id="detailsBox">
+            <div class="details-title" id="detailsTitle">Algorithm State:</div>
+            <div class="details-content" id="detailsContent">Waiting to start...</div>
+          </div>
+        </div>
+
+        <!-- Redesigned Event History -->
+        <div class="info-card log-card">
+          <div class="log-header">
+            <h3>Event History</h3>
+            <button id="clearLogBtn" class="btn-text">Clear</button>
+          </div>
+          <div class="event-history-container" id="logStream">
+            <div class="event-card type-init current">
+              <div class="event-card-header">
+                <span class="event-title">READY</span>
+              </div>
+              <div class="event-desc">Select an algorithm and click Start or Next Step.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

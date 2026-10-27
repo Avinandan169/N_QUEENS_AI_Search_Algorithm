@@ -1,0 +1,14 @@
+# N-Queens AI Search
+# ==============================================================================
+# The web application, backend API, and CLI are built ENTIRELY using
+# Python's Standard Library (Python >= 3.8).
+#
+# Zero external runtime packages are required. No pip install needed!
+#
+# Standard Library Modules Utilized:
+# - http.server, socketserver (Lightweight local web server)
+# - json, urllib.parse (API request/response serialization)
+# - webbrowser (Automatic browser launch)
+# - heapq (Priority queue for A* Search)
+# - random, time, dataclasses, typing, unittest
+# ==============================================================================
